@@ -1,29 +1,61 @@
-# Intern QC Documents
+# Intern QC
 
-Repo này dùng để đồng bộ tài liệu thực tập QC giữa nhiều máy.
+Repo nay dung de luu tai lieu kiem thu thu cong va kiem thu tu dong cho du an Student Attendance System.
 
-## Tài liệu
+## Cau truc thu muc
 
-- `documents/QC_Test_Plan_Test_Cases.docx`: template Word cho Test Plan, Bug Report và Test Summary.
-- `documents/QC_Test_Cases.xlsx`: bản Excel an toàn hơn, ưu tiên dùng nếu file ban đầu bị lỗi khi mở.
-
-## Cách làm việc trên máy khác
-
-```powershell
-git clone https://github.com/dpt004/Intern-QC.git
-cd Intern-QC
+```text
+Intern-QC/
+├── Automation/
+│   ├── resources/       # Keyword va bien dung chung cho Robot Framework
+│   ├── tests/           # Cac suite kiem thu tu dong
+│   └── results/         # Ket qua chay Robot Framework
+└── documents/           # Tat ca tai lieu va bao cao kiem thu
 ```
 
-Trước khi làm tiếp:
+## Tai lieu chinh
+
+- `documents/QC_Test_Cases.xlsx`: test cases manual.
+- `documents/Test_Report_Manual.md`: bao cao manual test.
+- `documents/Test_Report_Manual.xlsx`: ban Excel cua bao cao manual test.
+- `documents/Automation_Manual_Comparison.md`: bao cao so sanh manual va automation.
+- `documents/Automation_Manual_Comparison.xlsx`: ban Excel cua bao cao so sanh.
+
+## Automation suites
+
+- `Automation/tests/login_smoke.robot`
+- `Automation/tests/role_regression.robot`
+- `Automation/tests/class_student_import_regression.robot`
+- `Automation/tests/attendance_schedule_report_regression.robot`
+- `Automation/tests/remaining_regression.robot`
+
+## Lenh chay automation
+
+Chay kiem tra cu phap:
 
 ```powershell
-git pull
+robot --dryrun --output NONE --log NONE --report NONE Automation\tests
 ```
 
-Sau khi cập nhật tài liệu:
+Chay theo tung nhom tren production:
 
 ```powershell
-git add .
-git commit -m "Update QC documents"
-git push
+robot -d Automation\results\login_smoke Automation\tests\login_smoke.robot
+robot -d Automation\results\role_regression Automation\tests\role_regression.robot
+robot -d Automation\results\class_student_import Automation\tests\class_student_import_regression.robot
+robot -d Automation\results\remaining Automation\tests\remaining_regression.robot
 ```
+
+Chay nhom diem danh, thoi khoa bieu va bao cao tren local:
+
+```powershell
+robot -d Automation\results\attendance_schedule_report_local -v BASE_URL:http://localhost:8080 Automation\tests\attendance_schedule_report_regression.robot
+```
+
+## Ket qua hien tai
+
+- Manual test: 32/32 dat.
+- Automation dry-run: 32/32 dat.
+- Automation runtime: 32/32 dat.
+
+Ghi chu: cac tai lieu va bao cao nam trong `documents/`. Thu muc `Automation/` chi giu script automation, keyword dung chung va ket qua chay test.
