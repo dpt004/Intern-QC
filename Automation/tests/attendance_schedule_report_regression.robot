@@ -1,14 +1,7 @@
 *** Settings ***
-Resource          ../resources/common.resource
+Resource          ../resources/app.resource
 Test Setup        Open Login Page
 Test Teardown     Close Test Browser
-
-*** Variables ***
-${MENU_TIMETABLE}     Thời khóa biểu
-${MENU_ATTENDANCE}    Điểm danh
-${MENU_HISTORY}       Lịch sử
-${MENU_SCHEDULES}     Phân công tiết
-${MENU_REPORTS}       Báo cáo
 
 *** Test Cases ***
 TC_ATT_001 Attendance Page Is Ready For Marking
@@ -17,9 +10,7 @@ TC_ATT_001 Attendance Page Is Ready For Marking
     Login With Credentials    ${ADMIN_USERNAME}    ${ADMIN_PASSWORD}
     Dashboard Should Be Visible
     Click Sidebar Menu    ${MENU_ATTENDANCE}
-    Page Should Contain Element    css:.filters-bar
-    Page Should Contain Element    css:.filters-bar select
-    Page Should Contain Element    xpath://button[normalize-space()="Lọc"]
+    Attendance Page Should Be Ready
 
 TC_ATT_002 Attendance Can Be Filtered
     [Documentation]    Verify attendance filter action is available.
@@ -27,8 +18,7 @@ TC_ATT_002 Attendance Can Be Filtered
     Login With Credentials    ${ADMIN_USERNAME}    ${ADMIN_PASSWORD}
     Dashboard Should Be Visible
     Click Sidebar Menu    ${MENU_ATTENDANCE}
-    Click Button    xpath://button[normalize-space()="Lọc"]
-    Page Should Contain Element    css:.panel
+    Filter Attendance
 
 TC_ATT_LOCK_001 Attendance Lock Action Is Available For Admin
     [Documentation]    Verify lock action is exposed when attendance rows are available.
@@ -36,9 +26,7 @@ TC_ATT_LOCK_001 Attendance Lock Action Is Available For Admin
     Login With Credentials    ${ADMIN_USERNAME}    ${ADMIN_PASSWORD}
     Dashboard Should Be Visible
     Click Sidebar Menu    ${MENU_ATTENDANCE}
-    Page Should Contain Element    css:.panel
-    ${lock_visible}=    Run Keyword And Return Status    Page Should Contain Element    xpath://button[normalize-space()="Xác nhận và khóa"]
-    Log    Lock button visible: ${lock_visible}
+    Attendance Lock Button Should Be Checked
 
 TC_SCHEDULE_001 Schedule Assignment Page Is Available
     [Documentation]    Verify admin can open schedule assignment page and see required form fields.
@@ -46,9 +34,7 @@ TC_SCHEDULE_001 Schedule Assignment Page Is Available
     Login With Credentials    ${ADMIN_USERNAME}    ${ADMIN_PASSWORD}
     Dashboard Should Be Visible
     Click Sidebar Menu    ${MENU_SCHEDULES}
-    Page Should Contain Element    css:.schedule-form
-    Page Should Contain Element    css:.schedule-form select
-    Page Should Contain Element    css:.schedule-form input[type="time"]
+    Schedule Assignment Page Should Be Ready
 
 TC_TIMETABLE_001 Teacher Can See Timetable
     [Documentation]    Verify teacher can open timetable week grid.
@@ -56,7 +42,7 @@ TC_TIMETABLE_001 Teacher Can See Timetable
     Login With Credentials    ${TEACHER_USERNAME}    ${TEACHER_PASSWORD}
     Dashboard Should Be Visible
     Click Sidebar Menu    ${MENU_TIMETABLE}
-    Page Should Contain Element    css:.timetable-week-grid
+    Timetable Week Grid Should Be Visible
 
 TC_TIMETABLE_002 Student Can See Timetable
     [Documentation]    Verify student can open timetable week grid.
@@ -64,7 +50,7 @@ TC_TIMETABLE_002 Student Can See Timetable
     Login With Credentials    ${STUDENT_USERNAME}    ${STUDENT_PASSWORD}
     Dashboard Should Be Visible
     Click Sidebar Menu    ${MENU_TIMETABLE}
-    Page Should Contain Element    css:.timetable-week-grid
+    Timetable Week Grid Should Be Visible
 
 TC_REPORT_001 Admin Can Open Report Filters
     [Documentation]    Verify report page has filter inputs and action buttons.
@@ -72,10 +58,8 @@ TC_REPORT_001 Admin Can Open Report Filters
     Login With Credentials    ${ADMIN_USERNAME}    ${ADMIN_PASSWORD}
     Dashboard Should Be Visible
     Click Sidebar Menu    ${MENU_REPORTS}
-    Page Should Contain Element    css:.filters
-    Page Should Contain Element    css:.filters input[type="date"]
-    Button With Text Should Be Visible    Xem
-    Button With Text Should Be Visible    Xuất CSV
+    Report Filters Should Be Visible
+    Admin Report Actions Should Be Visible
 
 TC_REPORT_002 Student Can Open Own Report
     [Documentation]    Verify student can access report page without student-code filter.
@@ -83,6 +67,5 @@ TC_REPORT_002 Student Can Open Own Report
     Login With Credentials    ${STUDENT_USERNAME}    ${STUDENT_PASSWORD}
     Dashboard Should Be Visible
     Click Sidebar Menu    ${MENU_REPORTS}
-    Page Should Contain Element    css:.filters
-    Page Should Contain Element    css:.filters input[type="date"]
-    Page Should Not Contain Element    css:.filters input[placeholder="SV001"]
+    Report Filters Should Be Visible
+    Student Report Should Not Have Student Code Filter

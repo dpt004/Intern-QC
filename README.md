@@ -6,11 +6,15 @@ Repo nay dung de luu tai lieu kiem thu thu cong va kiem thu tu dong cho du an St
 
 ```text
 Intern-QC/
-├── Automation/
-│   ├── resources/       # Keyword va bien dung chung cho Robot Framework
-│   ├── tests/           # Cac suite kiem thu tu dong
-│   └── results/         # Ket qua chay Robot Framework
-└── documents/           # Tat ca tai lieu va bao cao kiem thu
+|-- Automation/
+|   |-- resources/
+|   |   |-- app.resource       # File import tong cho automation
+|   |   |-- common.resource    # Cau hinh, tai khoan test va bien dung chung
+|   |   |-- pages/             # Keyword theo Page Object Model
+|   |   `-- services/          # Keyword ho tro API/test data flow
+|   |-- tests/                 # Cac suite kiem thu tu dong
+|   `-- results/               # Ket qua chay Robot Framework
+`-- documents/                 # Tat ca tai lieu va bao cao kiem thu
 ```
 
 ## Tai lieu chinh
@@ -28,6 +32,14 @@ Intern-QC/
 - `Automation/tests/class_student_import_regression.robot`
 - `Automation/tests/attendance_schedule_report_regression.robot`
 - `Automation/tests/remaining_regression.robot`
+
+## Cau truc POM
+
+- `Automation/resources/app.resource`: import tat ca resource can cho test suite.
+- `Automation/resources/common.resource`: luu cau hinh browser, URL, tai khoan test va ten menu dung chung.
+- `Automation/resources/pages/`: moi file dai dien cho mot man hinh/chuc nang, vi du login, dashboard, class, student, attendance, schedule, timetable, report.
+- `Automation/resources/services/api_flows.resource`: gom cac keyword tao/sua/xoa du lieu bang API de test suite gon va de bao tri.
+- `Automation/tests/`: chi giu test flow va assertion muc nghiep vu, khong dat locator truc tiep trong suite neu co the dua vao page resource.
 
 ## Lenh chay automation
 

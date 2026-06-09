@@ -3,3 +3,7 @@ Automation/results/
 __pycache__/
 .venv/
 venv/
+*.tmp
+~$*
+documents/BieuMau_TTTN.docx
+documents/HD_TrinhBay_TTTN.pdf

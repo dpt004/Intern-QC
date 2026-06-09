@@ -1,5 +1,5 @@
 *** Settings ***
-Resource          ../resources/common.resource
+Resource          ../resources/app.resource
 Test Setup        Open Login Page
 Test Teardown     Close Test Browser
 

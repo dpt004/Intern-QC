@@ -1,16 +1,7 @@
 *** Settings ***
-Resource          ../resources/common.resource
+Resource          ../resources/app.resource
 Test Setup        Open Login Page
 Test Teardown     Close Test Browser
-
-*** Variables ***
-${MENU_TIMETABLE}    Thời khóa biểu
-${MENU_ATTENDANCE}   Điểm danh
-${MENU_HISTORY}      Lịch sử
-${MENU_STUDENTS}     Sinh viên
-${MENU_CLASSES}      Lớp
-${MENU_SCHEDULES}    Phân công tiết
-${MENU_REPORTS}      Báo cáo
 
 *** Test Cases ***
 TC_ROLE_001 Admin Can See Management Menus
